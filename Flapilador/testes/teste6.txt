@@ -1,0 +1,12 @@
+FLAMAIN [
+    flai = 0;
+
+    DIDI Exemplo de while
+    
+    ZICO (fli < 100) GOL
+        FLAPRINT [flai]
+        flai = flai + 1;
+    MENGO
+
+   
+]

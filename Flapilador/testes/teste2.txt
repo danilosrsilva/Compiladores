@@ -1,0 +1,16 @@
+FLAMAIN [
+    flax = 5;
+    flay = 10;
+  
+    DIDI Exemplo de if-else
+    VAR flax == flay GOL
+        FLAPRINT [flax];
+    IMPEDIDO
+        VAR flax > flay GOL
+            FLAPRINT [flax];
+        IMPEDIDO
+            FLAPRINT [flay];
+        MENGO
+    MENGO
+
+]

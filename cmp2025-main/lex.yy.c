@@ -477,16 +477,20 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "cal.l"
-#line 2 "cal.l"
-
-//meu comentario
-//yytext - qual caractere foi identificado
-
+#line 1 "calc.l"
+#line 2 "calc.l"
 #include <stdio.h>
 
-#line 489 "lex.yy.c"
-#line 490 "lex.yy.c"
+class Node;
+
+#include "calc.tab.h"
+int yyerror(const char *s);
+
+char *build_file_name;
+int errorcount = 0;
+
+#line 493 "lex.yy.c"
+#line 494 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -703,10 +707,10 @@ YY_DECL
 		}
 
 	{
-#line 12 "cal.l"
+#line 16 "calc.l"
 
 
-#line 710 "lex.yy.c"
+#line 714 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -776,80 +780,89 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 14 "cal.l"
-{ printf("espaço\n"); }
+#line 18 "calc.l"
+{ }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "cal.l"
-{ printf("print\n"); }
+#line 20 "calc.l"
+{ return TOK_PRINT; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 17 "cal.l"
-{ printf("+\n"); }
+#line 21 "calc.l"
+{ return '+'; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 18 "cal.l"
-{ printf("-\n");}
+#line 22 "calc.l"
+{ return '-'; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 19 "cal.l"
-{ printf("*\n"); }
+#line 23 "calc.l"
+{ return '*'; } 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 20 "cal.l"
-{ printf("/\n"); }
+#line 24 "calc.l"
+{ return '/'; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 21 "cal.l"
-{ printf("(\n"); }
+#line 25 "calc.l"
+{ return '('; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 22 "cal.l"
-{ printf(")\n"); }
+#line 26 "calc.l"
+{ return ')'; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 23 "cal.l"
-{ printf(";\n"); }
+#line 27 "calc.l"
+{ return ';'; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 24 "cal.l"
-{ printf("=\n");}
+#line 28 "calc.l"
+{ return '='; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 "cal.l"
-{ printf("<TOK_INT, %d>\n", atoi(yytext)); }
+#line 30 "calc.l"
+{
+    yylval.integer = atoi(yytext);
+    return TOK_INT;
+}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 "cal.l"
-{ printf("<TOK_FLT, %f>\n", atof(yytext)); }
+#line 35 "calc.l"
+{
+    yylval.flt = atof(yytext);
+    return TOK_FLT;
+}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 "cal.l"
-{ printf("<TOK_IDENT, %s>\n", yytext); }
+#line 40 "calc.l"
+{
+    yylval.name = strndup(yytext, yyleng);
+    return TOK_IDENT;
+}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 30 "cal.l"
-{ printf("Caractere não presente no alfabeto %c\n", yytext[0]); }
+#line 45 "calc.l"
+{ printf("Caractere não presente no alfabeto %c\n", yytext[0] ); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 33 "cal.l"
+#line 47 "calc.l"
 ECHO;
 	YY_BREAK
-#line 853 "lex.yy.c"
+#line 866 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1866,7 +1879,42 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 33 "cal.l"
+#line 47 "calc.l"
 
+
+int yyerror(const char *s) {
+    fprintf(stderr, "%d:%d: %s\n", 
+        yylineno, 0, s);
+    errorcount++;
+    return 1;
+}
+
+int yywrap() {
+    return 1;
+}
+
+int main(int argc, char *argv[]) {
+    
+    if (argc <= 1) {
+        fprintf(stderr, "Sintaxe: %s nome_do_programa\n",
+            argv[0]);
+        return 1;
+    }
+
+    build_file_name = argv[1];
+    yyin = fopen(build_file_name, "r");
+    if (yyin == NULL) {
+        fprintf(stderr, "Não foi possível abrir o arquivo %s.\n", build_file_name);
+        return 1;
+    }
+
+    //yydebug = 1;
+    yyparse();
+
+    if (yyin)
+        fclose(yyin);
+    
+    return errorcount;
+}
 
 

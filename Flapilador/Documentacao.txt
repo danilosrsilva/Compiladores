@@ -1,0 +1,94 @@
+# Documentação da Linguagem 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# Resumo:
+    A Flalinguagem é uma linguagem inspirada em conceitos do futebol e do Flamengo, com influências de Java, 
+    C e Python. Onde um programa válido deve iniciar com o bloco principal 'FLAMAIN', que define o ponto de
+    entrada do código:
+
+        FLAMAIN [
+            código
+        ]
+
+    Algumas das principais regras sintáticas:
+        - O identificador 'FLAMAIN' deve aparecer na primeira linha do programa;
+        - Não pode haver quebra de linha após o colchete de fechamento ']', caso contrário será emitido um erro 
+        de sintaxe;
+        - Todas as variáveis devem começar com “fla”, independentemente de maiúsculas ou minúsculas.
+
+
+
+
+# Palavras-Chave:
+    - FLAMAIN - Função principal (equivalente ao main)
+    - VAR - Declaração de condicional (if/else)
+    - ZICO - Loop while
+    - GOL - Início de bloco de código
+    - IMPEDIDO - Bloco else
+    - MENGO - Fim de bloco
+    -  FLAPRINT - Função de impressão
+    - DIDI - Comenta a linha
+
+# Operadores:
+    - Aritméticos: [+, -, *, /]
+
+    - Comparação: [>, <, ==, <=, >=, !=]
+
+    - Lógicos: [AND - Operador E lógico; OR - Operador OU lógico]
+
+# Tipos de Dados:
+    - INT - Números inteiros
+    - FLT - Números de ponto flutuante
+    - VARMENGO - Variáveis (devem começar com "fla")
+
+# Sintaxe Básica
+
+    Declaração de Variáveis:
+        flaMinhaVar = 10;
+
+
+    Condicionais:
+        VAR condição GOL 
+            DIDI código if
+        MENGO
+
+        VAR condição GOL
+            DIDI código if
+        IMPEDIDO
+            DIDI código else
+        MENGO
+
+
+    Loops:
+        ZICO condição GOL
+            DIDI código do loop
+        MENGO
+
+
+    Impressão:
+        FLAPRINT [ expressão ];
+
+
+
+# Tratamento de Erros
+    - Erros são chamados de "Gol Contra"
+    - Contagem de erros é exibida ao final
+    - Mensagens de erro indicam a linha onde ocorreram
+
+# Exemplo de Programa:
+
+FLAMAIN [
+    flax = 5;
+    flay = 10;
+  
+    DIDI Exemplo de if-else
+    VAR flax == flay GOL
+        FLAPRINT [flay];
+    IMPEDIDO
+        FLAPRINT [flax];
+    MENGO
+
+]
+
+
+

@@ -1,0 +1,18 @@
+FLAMAIN [
+
+    DIDI Exemplo de while
+   
+    flan = 7;
+    flacontador = 0;
+    ZICO (flacontador < 100) GOL
+        VAR (flacontador%2) = 0 GOL
+            flaPar = flan * flacontador;
+            FLAPRINT [flaPar];
+        IMPEDIDO
+            flaImpar = flan / flacontador;
+            FLAPRINT [flaImpar];
+        
+        flacontador = flacontador + 1;
+    MENGO
+    FLAPRINT [flacontador];
+]
