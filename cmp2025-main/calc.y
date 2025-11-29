@@ -26,31 +26,34 @@ int yylex (void);
 %%
 
 program : stmts {
-    Program pg($stmts);
-    pg.printAst();
-
-    SemanticVarDecl vd;
-    vd.check(&pg);
-    //vd.printFoundVars();
+	Program pg($stmts);
+	pg.printAst();
+	
+	SemanticVarDecl vd;
+	vd.check(&pg);
+	//vd.printFoundVars();
 }
 
 stmts : stmts[ss] stmt {
-    $ss->append($stmt);
-    $$ = $ss;
+	$ss->append($stmt);
+	$$ = $ss;
 }
+
 
 stmts : stmt {
-    $$ = new Stmts($stmt);
+	$$ = new Stmts($stmt);
 }
 
-stmt : TOK_IDENT[id] '=' expr[e] ';' {
-    $$ = new Store($id, $e);
+stmt : TOK_IDENT[id] '=' expr[e] ';'{
+	$$ = new Store($id,$e);
 }
 
-stmt : TOK_PRINT expr[e] ';' {
-    $$ = new Print($e);
+
+stmt: TOK_PRINT expr[e] ';'{
+	$$ = new Print($e);
 }
 
+     
 expr : expr[e1] '+' term {
     $$ = new BinaryOp($e1, '+', $term);
 }

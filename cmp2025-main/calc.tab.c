@@ -509,8 +509,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    28,    28,    37,    42,    46,    50,    54,    58,    62,
-      66,    70,    74,    78,    82,    86,    90
+       0,    28,    28,    37,    43,    47,    52,    57,    61,    65,
+      69,    73,    77,    81,    85,    89,    93
 };
 #endif
 
@@ -1352,12 +1352,12 @@ yyreduce:
   case 2: /* program: stmts  */
 #line 28 "calc.y"
                 {
-    Program pg((yyvsp[0].node));
-    pg.printAst();
-
-    SemanticVarDecl vd;
-    vd.check(&pg);
-    //vd.printFoundVars();
+	Program pg((yyvsp[0].node));
+	pg.printAst();
+	
+	SemanticVarDecl vd;
+	vd.check(&pg);
+	//vd.printFoundVars();
 }
 #line 1363 "calc.tab.c"
     break;
@@ -1365,38 +1365,38 @@ yyreduce:
   case 3: /* stmts: stmts stmt  */
 #line 37 "calc.y"
                        {
-    (yyvsp[-1].node)->append((yyvsp[0].node));
-    (yyval.node) = (yyvsp[-1].node);
+	(yyvsp[-1].node)->append((yyvsp[0].node));
+	(yyval.node) = (yyvsp[-1].node);
 }
 #line 1372 "calc.tab.c"
     break;
 
   case 4: /* stmts: stmt  */
-#line 42 "calc.y"
+#line 43 "calc.y"
              {
-    (yyval.node) = new Stmts((yyvsp[0].node));
+	(yyval.node) = new Stmts((yyvsp[0].node));
 }
 #line 1380 "calc.tab.c"
     break;
 
   case 5: /* stmt: TOK_IDENT '=' expr ';'  */
-#line 46 "calc.y"
-                                     {
-    (yyval.node) = new Store((yyvsp[-3].name), (yyvsp[-1].node));
+#line 47 "calc.y"
+                                    {
+	(yyval.node) = new Store((yyvsp[-3].name),(yyvsp[-1].node));
 }
 #line 1388 "calc.tab.c"
     break;
 
   case 6: /* stmt: TOK_PRINT expr ';'  */
-#line 50 "calc.y"
-                             {
-    (yyval.node) = new Print((yyvsp[-1].node));
+#line 52 "calc.y"
+                           {
+	(yyval.node) = new Print((yyvsp[-1].node));
 }
 #line 1396 "calc.tab.c"
     break;
 
   case 7: /* expr: expr '+' term  */
-#line 54 "calc.y"
+#line 57 "calc.y"
                          {
     (yyval.node) = new BinaryOp((yyvsp[-2].node), '+', (yyvsp[0].node));
 }
@@ -1404,7 +1404,7 @@ yyreduce:
     break;
 
   case 8: /* expr: expr '-' term  */
-#line 58 "calc.y"
+#line 61 "calc.y"
                          {
     (yyval.node) = new BinaryOp((yyvsp[-2].node), '-', (yyvsp[0].node));
 }
@@ -1412,7 +1412,7 @@ yyreduce:
     break;
 
   case 9: /* expr: term  */
-#line 62 "calc.y"
+#line 65 "calc.y"
             {
     (yyval.node) = (yyvsp[0].node);
 }
@@ -1420,7 +1420,7 @@ yyreduce:
     break;
 
   case 10: /* term: term '*' factor  */
-#line 66 "calc.y"
+#line 69 "calc.y"
                            {
     (yyval.node) = new BinaryOp((yyvsp[-2].node), '*', (yyvsp[0].node));
 }
@@ -1428,7 +1428,7 @@ yyreduce:
     break;
 
   case 11: /* term: term '/' factor  */
-#line 70 "calc.y"
+#line 73 "calc.y"
                            {
     (yyval.node) = new BinaryOp((yyvsp[-2].node), '/', (yyvsp[0].node));
 }
@@ -1436,7 +1436,7 @@ yyreduce:
     break;
 
   case 12: /* term: factor  */
-#line 74 "calc.y"
+#line 77 "calc.y"
               {
     (yyval.node) = (yyvsp[0].node);
 }
@@ -1444,7 +1444,7 @@ yyreduce:
     break;
 
   case 13: /* factor: '(' expr ')'  */
-#line 78 "calc.y"
+#line 81 "calc.y"
                       {
     (yyval.node) = (yyvsp[-1].node);
 }
@@ -1452,7 +1452,7 @@ yyreduce:
     break;
 
   case 14: /* factor: TOK_INT  */
-#line 82 "calc.y"
+#line 85 "calc.y"
                           {
     (yyval.node) = new ConstInteger((yyvsp[0].integer));
 }
@@ -1460,7 +1460,7 @@ yyreduce:
     break;
 
   case 15: /* factor: TOK_FLT  */
-#line 86 "calc.y"
+#line 89 "calc.y"
                       {
     (yyval.node) = new ConstDouble((yyvsp[0].flt));
 }
@@ -1468,7 +1468,7 @@ yyreduce:
     break;
 
   case 16: /* factor: TOK_IDENT  */
-#line 90 "calc.y"
+#line 93 "calc.y"
                        {
     (yyval.node) = new Load((yyvsp[0].name));
 }
@@ -1700,6 +1700,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 94 "calc.y"
+#line 97 "calc.y"
 
 
