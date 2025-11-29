@@ -3,16 +3,19 @@
 #include "nodes.h"
 int yyerror(const char *s);
 int yylex (void);
+void crf();
+void deuRuim();
 %}
 
 %define parse.error verbose
 
-%token TOK_PRINT
+%token TOK_PRINT TOK_WHILE TOK_IBLC TOK_FBLC
+%token TOK_MAQ TOK_MEQ TOK_EQL TOK_DDQ
 %token<integer> TOK_INT
 %token<flt> TOK_FLT
 %token<name> TOK_IDENT
 
-%type<node> factor term expr stmt stmts program
+%type<node> factor term expr condicional stmt stmts program
 
 %start program
 
@@ -28,6 +31,7 @@ int yylex (void);
 program : stmts {
 	Program pg($stmts);
 	pg.printAst();
+    crf();
 	
 	SemanticVarDecl vd;
 	vd.check(&pg);
@@ -35,64 +39,133 @@ program : stmts {
 }
 
 stmts : stmts[ss] stmt {
-	$ss->append($stmt);
-	$$ = $ss;
-}
-
-
-stmts : stmt {
-	$$ = new Stmts($stmt);
-}
+      $ss->append($stmt);
+      $$ = $ss;
+  }
+  | stmt {
+      $$ = new Stmts($stmt);
+  }
+  ;
 
 stmt : TOK_IDENT[id] '=' expr[e] ';'{
-	$$ = new Store($id,$e);
-}
+      $$ = new Store($id,$e);
+  }
+  | TOK_PRINT '[' expr[e] ']' ';'{
+      $$ = new Print($e);
+  }
+  | TOK_WHILE '[' condicional ']' TOK_IBLC stmts TOK_FBLC {
+      $$ = new While($condicional, $stmts);
+  } 
+  ;
 
-
-stmt: TOK_PRINT expr[e] ';'{
-	$$ = new Print($e);
-}
-
+condicional : expr[le] TOK_MAQ expr[re] {
+      $$ = new Condicional($le,">",$re);
+    }
+    |  expr[le] TOK_MEQ expr[re] {
+      $$ = new Condicional($le,"<",$re);
+    }
+    |  expr[le] TOK_EQL expr[re] {
+      $$ = new Condicional($le,"==",$re);
+    }
+    |  expr[le] TOK_DDQ expr[re] {
+      $$ = new Condicional($le,"!=",$re);
+    }
+    ;
      
 expr : expr[e1] '+' term {
-    $$ = new BinaryOp($e1, '+', $term);
-}
+      $$ = new BinaryOp($e1, '+', $term);
+  }
 
-expr : expr[e1] '-' term {
-    $$ = new BinaryOp($e1, '-', $term);
-}
+  | expr[e1] '-' term {
+      $$ = new BinaryOp($e1, '-', $term);
+  }
 
-expr : term {
-    $$ = $term;
-}
+  | term {
+      $$ = $term;
+  }
+  ;
 
 term : term[t1] '*' factor {
-    $$ = new BinaryOp($t1, '*', $factor);
-}
+      $$ = new BinaryOp($t1, '*', $factor);
+  }
 
-term : term[t1] '/' factor {
-    $$ = new BinaryOp($t1, '/', $factor);
-}
+  | term[t1] '/' factor {
+      $$ = new BinaryOp($t1, '/', $factor);
+  }
 
-term : factor {
-    $$ = $factor;
-}
+  | factor {
+      $$ = $factor;
+  }
+  ;
 
 factor : '(' expr ')' {
-    $$ = $expr;
-}
-
-factor : TOK_INT[integer] {
-    $$ = new ConstInteger($integer);
-}
-
-factor : TOK_FLT[flt] {
-    $$ = new ConstDouble($flt);
-}
-
-factor : TOK_IDENT[id] {
-    $$ = new Load($id);
-}
+      $$ = $expr;
+  }
+  | TOK_INT[integer] {
+      $$ = new ConstInteger($integer);
+  }
+  | TOK_FLT[flt] {
+      $$ = new ConstDouble($flt);
+  }
+  | TOK_IDENT[id] {
+      $$ = new Load($id);
+  }
+  ;
 
 %%
 
+void crf(){
+	printf("\n\n");
+	printf("⠀⠀⠀⠀⠀⠱⣶⣶⣶⣶⣶⣦⣤⣀⠀⠀⠀⠀⠀⠀\n");
+    printf("⠀⠀⠀⠀⢀⣤⣵⣶⣾⣷⣀⠈⠛⢿⣷⡄⠀⠀⠀⣠\n");
+    printf("⠀⠀⢀⣾⠟⠋⣭⣯⠙⠿⠸⣿⣿⠎⣿⣿⣎⠿⣿⡿\n");
+    printf("⠀⢰⣿⠏⠀⠀⣿⣿⠀⠀⠀⣿⣿⠀⣿⣿⠋⠀⠙⠁\n");
+    printf("⣤⣿⣿⠀⠀⠀⣿⣿⠀⠀⠀⣿⣿⢀⣿⠏⠀⠀⠀⠀\n");
+    printf("⠸⣿⣿⡀⠀⠀⣿⣿⣶⣦⣤⣛⢿⣾⣷⣶⣶⣾⠀⠀\n");
+    printf("⠀⠙⣿⣷⡀⠀⣿⣿⠀⠈⠙⢿⣷⡄⠀⠈⢻⠏⠀⠀\n");
+    printf("⠀⠀⠈⠛⢿⣷⣯⣭⣤⣤⡆⣷⡝⣿⣆⠀⠀⠀⠀⠀\n");
+    printf("⠀⠀⠀⠀⠀⠀⣯⣭⠉⠉⢀⣿⣿⠈⢿⣷⣤⣤⡴⠀\n");
+    printf("⠀⠀⠀⠀⠀⠰⢿⣿⣆⠀⠼⣿⣿⡄⠈⠻⠿⠟⠁⠀\n\n");
+}
+
+
+void deuRuim(){
+	printf("\n\n");
+	printf("__________████████_____██████\n");
+    printf("_________█░░░░░░░░██_██░░░░░░█\n");
+    printf("________█░░░░░░░░░░░█░░░░░░░░░█\n");
+    printf("_______█░░░░░░░███░░░█░░░░░░░░░█\n");
+    printf("_______█░░░░███░░░███░█░░░████░█\n");
+    printf("______█░░░██░░░░░░░░███░██░░░░██\n");
+    printf("_____█░░░░░░░░░░░░░░░░░█░░░░░░░░███\n");
+    printf("____█░░░░░░░░░░░░░██████░░░░░████░░█\n");
+    printf("____█░░░░░░░░░█████░░░████░░██░░██░░█\n");
+    printf("___██░░░░░░░███░░░░░░░░░░█░░░░░░░░███\n");
+    printf("__█░░░░░░░░░░░░░░█████████░░█████████\n");
+    printf("_█░░░░░░░░░░█████_████___████_█████___█\n");
+    printf("_█░░░░░░░░░░█______█_███__█_____███_█___█\n");
+    printf("█░░░░░░░░░░░░█___████_████____██_██████\n");
+    printf("░░░░░░░░░░░░░█████████░░░████████░░░█\n");
+    printf("░░░░░░░░░░░░░░░░█░░░░░█░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░██░░░░█░░░░░░██\n");
+    printf("░░░░░░░░░░░░░░░░░░██░░░░░░░███████\n");
+    printf("░░░░░░░░░░░░░░░░██░░░░░░░░░░█░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░█████████░░░░░░░░░░░░░░██\n");
+    printf("░░░░░░░░░░█▒▒▒▒▒▒▒▒███████████████▒▒█\n");
+    printf("░░░░░░░░░█▒▒███████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█\n");
+    printf("░░░░░░░░░█▒▒▒▒▒▒▒▒▒█████████████████\n");
+    printf("░░░░░░░░░░████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█\n");
+    printf("░░░░░░░░░░░░░░░░░░██████████████████\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("██░░░░░░░░░░░░░░░░░░░░░░░░░░░██\n");
+    printf("▓██░░░░░░░░░░░░░░░░░░░░░░░░██\n");
+    printf("▓▓▓███░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("▓▓▓▓▓▓███░░░░░░░░░░░░░░░██\n");
+    printf("▓▓▓▓▓▓▓▓▓███████████████▓▓█\n");
+    printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██\n");
+    printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█\n");
+    printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n");
+}

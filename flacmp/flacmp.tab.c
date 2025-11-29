@@ -72,8 +72,10 @@
 #include "nodes.h"
 int yyerror(const char *s);
 int yylex (void);
+void crf();
+void deuRuim();
 
-#line 77 "flacmp.tab.c"
+#line 79 "flacmp.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -105,24 +107,34 @@ enum yysymbol_kind_t
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
   YYSYMBOL_TOK_PRINT = 3,                  /* TOK_PRINT  */
-  YYSYMBOL_TOK_INT = 4,                    /* TOK_INT  */
-  YYSYMBOL_TOK_FLT = 5,                    /* TOK_FLT  */
-  YYSYMBOL_TOK_IDENT = 6,                  /* TOK_IDENT  */
-  YYSYMBOL_7_ = 7,                         /* '='  */
-  YYSYMBOL_8_ = 8,                         /* ';'  */
-  YYSYMBOL_9_ = 9,                         /* '+'  */
-  YYSYMBOL_10_ = 10,                       /* '-'  */
-  YYSYMBOL_11_ = 11,                       /* '*'  */
-  YYSYMBOL_12_ = 12,                       /* '/'  */
-  YYSYMBOL_13_ = 13,                       /* '('  */
-  YYSYMBOL_14_ = 14,                       /* ')'  */
-  YYSYMBOL_YYACCEPT = 15,                  /* $accept  */
-  YYSYMBOL_program = 16,                   /* program  */
-  YYSYMBOL_stmts = 17,                     /* stmts  */
-  YYSYMBOL_stmt = 18,                      /* stmt  */
-  YYSYMBOL_expr = 19,                      /* expr  */
-  YYSYMBOL_term = 20,                      /* term  */
-  YYSYMBOL_factor = 21                     /* factor  */
+  YYSYMBOL_TOK_WHILE = 4,                  /* TOK_WHILE  */
+  YYSYMBOL_TOK_IBLC = 5,                   /* TOK_IBLC  */
+  YYSYMBOL_TOK_FBLC = 6,                   /* TOK_FBLC  */
+  YYSYMBOL_TOK_MAQ = 7,                    /* TOK_MAQ  */
+  YYSYMBOL_TOK_MEQ = 8,                    /* TOK_MEQ  */
+  YYSYMBOL_TOK_EQL = 9,                    /* TOK_EQL  */
+  YYSYMBOL_TOK_DDQ = 10,                   /* TOK_DDQ  */
+  YYSYMBOL_TOK_INT = 11,                   /* TOK_INT  */
+  YYSYMBOL_TOK_FLT = 12,                   /* TOK_FLT  */
+  YYSYMBOL_TOK_IDENT = 13,                 /* TOK_IDENT  */
+  YYSYMBOL_14_ = 14,                       /* '='  */
+  YYSYMBOL_15_ = 15,                       /* ';'  */
+  YYSYMBOL_16_ = 16,                       /* '['  */
+  YYSYMBOL_17_ = 17,                       /* ']'  */
+  YYSYMBOL_18_ = 18,                       /* '+'  */
+  YYSYMBOL_19_ = 19,                       /* '-'  */
+  YYSYMBOL_20_ = 20,                       /* '*'  */
+  YYSYMBOL_21_ = 21,                       /* '/'  */
+  YYSYMBOL_22_ = 22,                       /* '('  */
+  YYSYMBOL_23_ = 23,                       /* ')'  */
+  YYSYMBOL_YYACCEPT = 24,                  /* $accept  */
+  YYSYMBOL_program = 25,                   /* program  */
+  YYSYMBOL_stmts = 26,                     /* stmts  */
+  YYSYMBOL_stmt = 27,                      /* stmt  */
+  YYSYMBOL_condicional = 28,               /* condicional  */
+  YYSYMBOL_expr = 29,                      /* expr  */
+  YYSYMBOL_term = 30,                      /* term  */
+  YYSYMBOL_factor = 31                     /* factor  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -448,21 +460,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  14
+#define YYFINAL  10
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   26
+#define YYLAST   50
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  15
+#define YYNTOKENS  24
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  7
+#define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  16
+#define YYNRULES  21
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  29
+#define YYNSTATES  47
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   261
+#define YYMAXUTOK   268
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -480,12 +492,12 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      13,    14,    11,     9,     2,    10,     2,    12,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     8,
-       2,     7,     2,     2,     2,     2,     2,     2,     2,     2,
+      22,    23,    20,    18,     2,    19,     2,    21,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    15,
+       2,    14,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,    16,     2,    17,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -502,15 +514,16 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6
+       5,     6,     7,     8,     9,    10,    11,    12,    13
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    28,    28,    37,    43,    47,    52,    57,    61,    65,
-      69,    73,    77,    81,    85,    89,    93
+       0,    31,    31,    41,    45,    50,    53,    56,    61,    64,
+      67,    70,    75,    79,    83,    88,    92,    96,   101,   104,
+     107,   110
 };
 #endif
 
@@ -526,9 +539,11 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "TOK_PRINT", "TOK_INT",
-  "TOK_FLT", "TOK_IDENT", "'='", "';'", "'+'", "'-'", "'*'", "'/'", "'('",
-  "')'", "$accept", "program", "stmts", "stmt", "expr", "term", "factor", YY_NULLPTR
+  "\"end of file\"", "error", "\"invalid token\"", "TOK_PRINT",
+  "TOK_WHILE", "TOK_IBLC", "TOK_FBLC", "TOK_MAQ", "TOK_MEQ", "TOK_EQL",
+  "TOK_DDQ", "TOK_INT", "TOK_FLT", "TOK_IDENT", "'='", "';'", "'['", "']'",
+  "'+'", "'-'", "'*'", "'/'", "'('", "')'", "$accept", "program", "stmts",
+  "stmt", "condicional", "expr", "term", "factor", YY_NULLPTR
 };
 
 static const char *
@@ -538,7 +553,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-7)
+#define YYPACT_NINF (-10)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -552,9 +567,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       8,    -4,    -2,    23,     8,    -7,    -7,    -7,    -7,    -4,
-       7,     1,    -7,    -4,    -7,    -7,    -6,    -7,    -4,    -4,
-      -4,    -4,    10,    -7,     1,     1,    -7,    -7,    -7
+      24,    -9,     2,     7,    31,    24,   -10,    -2,    -2,    -2,
+     -10,   -10,   -10,   -10,   -10,    -2,    25,    -8,   -10,    16,
+      -4,    17,    11,    26,    -2,    -2,    -2,    -2,    42,    -2,
+      -2,    -2,    -2,   -10,   -10,   -10,    -8,    -8,   -10,   -10,
+      24,    20,    20,    20,    20,    13,   -10
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -562,21 +579,23 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     2,     4,    14,    15,    16,     0,
-       0,     9,    12,     0,     1,     3,     0,     6,     0,     0,
-       0,     0,     0,    13,     7,     8,    10,    11,     5
+       0,     0,     0,     0,     0,     2,     4,     0,     0,     0,
+       1,     3,    19,    20,    21,     0,     0,    14,    17,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     5,    18,     6,    12,    13,    15,    16,
+       0,     8,     9,    10,    11,     0,     7
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -7,    -7,    -7,    22,    -3,     3,     4
+     -10,   -10,    10,    -5,   -10,    -7,    21,    22
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     3,     4,     5,    10,    11,    12
+       0,     4,     5,     6,    19,    16,    17,    18
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -584,39 +603,49 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       6,     7,     8,    18,    19,    13,    16,     0,    23,     9,
-      22,     1,    20,    21,     2,    17,    18,    19,    28,    18,
-      19,    24,    25,    14,    26,    27,    15
+      11,    20,    21,    29,    30,    31,    32,     7,    22,    12,
+      13,    14,    26,    27,    24,    25,     1,     2,     8,    46,
+      15,     9,    41,    42,    43,    44,     3,     1,     2,    24,
+      25,    10,    33,    28,    34,    24,    25,     3,    24,    25,
+      11,    35,    23,    24,    25,    36,    37,    40,    38,    39,
+      45
 };
 
 static const yytype_int8 yycheck[] =
 {
-       4,     5,     6,     9,    10,     7,     9,    -1,    14,    13,
-      13,     3,    11,    12,     6,     8,     9,    10,     8,     9,
-      10,    18,    19,     0,    20,    21,     4
+       5,     8,     9,     7,     8,     9,    10,    16,    15,    11,
+      12,    13,    20,    21,    18,    19,     3,     4,    16,     6,
+      22,    14,    29,    30,    31,    32,    13,     3,     4,    18,
+      19,     0,    15,    17,    23,    18,    19,    13,    18,    19,
+      45,    15,    17,    18,    19,    24,    25,     5,    26,    27,
+      40
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     6,    16,    17,    18,     4,     5,     6,    13,
-      19,    20,    21,     7,     0,    18,    19,     8,     9,    10,
-      11,    12,    19,    14,    20,    20,    21,    21,     8
+       0,     3,     4,    13,    25,    26,    27,    16,    16,    14,
+       0,    27,    11,    12,    13,    22,    29,    30,    31,    28,
+      29,    29,    29,    17,    18,    19,    20,    21,    17,     7,
+       8,     9,    10,    15,    23,    15,    30,    30,    31,    31,
+       5,    29,    29,    29,    29,    26,     6
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    15,    16,    17,    17,    18,    18,    19,    19,    19,
-      20,    20,    20,    21,    21,    21,    21
+       0,    24,    25,    26,    26,    27,    27,    27,    28,    28,
+      28,    28,    29,    29,    29,    30,    30,    30,    31,    31,
+      31,    31
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     2,     1,     4,     3,     3,     3,     1,
-       3,     3,     1,     3,     1,     1,     1
+       0,     2,     1,     2,     1,     4,     5,     7,     3,     3,
+       3,     3,     3,     3,     1,     3,     3,     1,     3,     1,
+       1,     1
 };
 
 
@@ -1350,133 +1379,174 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: stmts  */
-#line 28 "flacmp.y"
+#line 31 "flacmp.y"
                 {
 	Program pg((yyvsp[0].node));
 	pg.printAst();
+    crf();
 	
 	SemanticVarDecl vd;
 	vd.check(&pg);
 	//vd.printFoundVars();
 }
-#line 1363 "flacmp.tab.c"
+#line 1393 "flacmp.tab.c"
     break;
 
   case 3: /* stmts: stmts stmt  */
-#line 37 "flacmp.y"
+#line 41 "flacmp.y"
                        {
-	(yyvsp[-1].node)->append((yyvsp[0].node));
-	(yyval.node) = (yyvsp[-1].node);
-}
-#line 1372 "flacmp.tab.c"
+      (yyvsp[-1].node)->append((yyvsp[0].node));
+      (yyval.node) = (yyvsp[-1].node);
+  }
+#line 1402 "flacmp.tab.c"
     break;
 
   case 4: /* stmts: stmt  */
-#line 43 "flacmp.y"
-             {
-	(yyval.node) = new Stmts((yyvsp[0].node));
-}
-#line 1380 "flacmp.tab.c"
+#line 45 "flacmp.y"
+         {
+      (yyval.node) = new Stmts((yyvsp[0].node));
+  }
+#line 1410 "flacmp.tab.c"
     break;
 
   case 5: /* stmt: TOK_IDENT '=' expr ';'  */
-#line 47 "flacmp.y"
+#line 50 "flacmp.y"
                                     {
-	(yyval.node) = new Store((yyvsp[-3].name),(yyvsp[-1].node));
-}
-#line 1388 "flacmp.tab.c"
+      (yyval.node) = new Store((yyvsp[-3].name),(yyvsp[-1].node));
+  }
+#line 1418 "flacmp.tab.c"
     break;
 
-  case 6: /* stmt: TOK_PRINT expr ';'  */
-#line 52 "flacmp.y"
-                           {
-	(yyval.node) = new Print((yyvsp[-1].node));
-}
-#line 1396 "flacmp.tab.c"
+  case 6: /* stmt: TOK_PRINT '[' expr ']' ';'  */
+#line 53 "flacmp.y"
+                                 {
+      (yyval.node) = new Print((yyvsp[-2].node));
+  }
+#line 1426 "flacmp.tab.c"
     break;
 
-  case 7: /* expr: expr '+' term  */
-#line 57 "flacmp.y"
-                         {
-    (yyval.node) = new BinaryOp((yyvsp[-2].node), '+', (yyvsp[0].node));
-}
-#line 1404 "flacmp.tab.c"
+  case 7: /* stmt: TOK_WHILE '[' condicional ']' TOK_IBLC stmts TOK_FBLC  */
+#line 56 "flacmp.y"
+                                                          {
+      (yyval.node) = new While((yyvsp[-4].node), (yyvsp[-1].node));
+  }
+#line 1434 "flacmp.tab.c"
     break;
 
-  case 8: /* expr: expr '-' term  */
+  case 8: /* condicional: expr TOK_MAQ expr  */
 #line 61 "flacmp.y"
+                                        {
+      (yyval.node) = new Condicional((yyvsp[-2].node),">",(yyvsp[0].node));
+    }
+#line 1442 "flacmp.tab.c"
+    break;
+
+  case 9: /* condicional: expr TOK_MEQ expr  */
+#line 64 "flacmp.y"
+                                 {
+      (yyval.node) = new Condicional((yyvsp[-2].node),"<",(yyvsp[0].node));
+    }
+#line 1450 "flacmp.tab.c"
+    break;
+
+  case 10: /* condicional: expr TOK_EQL expr  */
+#line 67 "flacmp.y"
+                                 {
+      (yyval.node) = new Condicional((yyvsp[-2].node),"==",(yyvsp[0].node));
+    }
+#line 1458 "flacmp.tab.c"
+    break;
+
+  case 11: /* condicional: expr TOK_DDQ expr  */
+#line 70 "flacmp.y"
+                                 {
+      (yyval.node) = new Condicional((yyvsp[-2].node),"!=",(yyvsp[0].node));
+    }
+#line 1466 "flacmp.tab.c"
+    break;
+
+  case 12: /* expr: expr '+' term  */
+#line 75 "flacmp.y"
                          {
-    (yyval.node) = new BinaryOp((yyvsp[-2].node), '-', (yyvsp[0].node));
-}
-#line 1412 "flacmp.tab.c"
+      (yyval.node) = new BinaryOp((yyvsp[-2].node), '+', (yyvsp[0].node));
+  }
+#line 1474 "flacmp.tab.c"
     break;
 
-  case 9: /* expr: term  */
-#line 65 "flacmp.y"
-            {
-    (yyval.node) = (yyvsp[0].node);
-}
-#line 1420 "flacmp.tab.c"
-    break;
-
-  case 10: /* term: term '*' factor  */
-#line 69 "flacmp.y"
-                           {
-    (yyval.node) = new BinaryOp((yyvsp[-2].node), '*', (yyvsp[0].node));
-}
-#line 1428 "flacmp.tab.c"
-    break;
-
-  case 11: /* term: term '/' factor  */
-#line 73 "flacmp.y"
-                           {
-    (yyval.node) = new BinaryOp((yyvsp[-2].node), '/', (yyvsp[0].node));
-}
-#line 1436 "flacmp.tab.c"
-    break;
-
-  case 12: /* term: factor  */
-#line 77 "flacmp.y"
-              {
-    (yyval.node) = (yyvsp[0].node);
-}
-#line 1444 "flacmp.tab.c"
-    break;
-
-  case 13: /* factor: '(' expr ')'  */
-#line 81 "flacmp.y"
+  case 13: /* expr: expr '-' term  */
+#line 79 "flacmp.y"
                       {
-    (yyval.node) = (yyvsp[-1].node);
-}
-#line 1452 "flacmp.tab.c"
+      (yyval.node) = new BinaryOp((yyvsp[-2].node), '-', (yyvsp[0].node));
+  }
+#line 1482 "flacmp.tab.c"
     break;
 
-  case 14: /* factor: TOK_INT  */
-#line 85 "flacmp.y"
-                          {
-    (yyval.node) = new ConstInteger((yyvsp[0].integer));
-}
-#line 1460 "flacmp.tab.c"
+  case 14: /* expr: term  */
+#line 83 "flacmp.y"
+         {
+      (yyval.node) = (yyvsp[0].node);
+  }
+#line 1490 "flacmp.tab.c"
     break;
 
-  case 15: /* factor: TOK_FLT  */
-#line 89 "flacmp.y"
+  case 15: /* term: term '*' factor  */
+#line 88 "flacmp.y"
+                           {
+      (yyval.node) = new BinaryOp((yyvsp[-2].node), '*', (yyvsp[0].node));
+  }
+#line 1498 "flacmp.tab.c"
+    break;
+
+  case 16: /* term: term '/' factor  */
+#line 92 "flacmp.y"
+                        {
+      (yyval.node) = new BinaryOp((yyvsp[-2].node), '/', (yyvsp[0].node));
+  }
+#line 1506 "flacmp.tab.c"
+    break;
+
+  case 17: /* term: factor  */
+#line 96 "flacmp.y"
+           {
+      (yyval.node) = (yyvsp[0].node);
+  }
+#line 1514 "flacmp.tab.c"
+    break;
+
+  case 18: /* factor: '(' expr ')'  */
+#line 101 "flacmp.y"
                       {
-    (yyval.node) = new ConstDouble((yyvsp[0].flt));
-}
-#line 1468 "flacmp.tab.c"
+      (yyval.node) = (yyvsp[-1].node);
+  }
+#line 1522 "flacmp.tab.c"
     break;
 
-  case 16: /* factor: TOK_IDENT  */
-#line 93 "flacmp.y"
-                       {
-    (yyval.node) = new Load((yyvsp[0].name));
-}
-#line 1476 "flacmp.tab.c"
+  case 19: /* factor: TOK_INT  */
+#line 104 "flacmp.y"
+                     {
+      (yyval.node) = new ConstInteger((yyvsp[0].integer));
+  }
+#line 1530 "flacmp.tab.c"
+    break;
+
+  case 20: /* factor: TOK_FLT  */
+#line 107 "flacmp.y"
+                 {
+      (yyval.node) = new ConstDouble((yyvsp[0].flt));
+  }
+#line 1538 "flacmp.tab.c"
+    break;
+
+  case 21: /* factor: TOK_IDENT  */
+#line 110 "flacmp.y"
+                  {
+      (yyval.node) = new Load((yyvsp[0].name));
+  }
+#line 1546 "flacmp.tab.c"
     break;
 
 
-#line 1480 "flacmp.tab.c"
+#line 1550 "flacmp.tab.c"
 
       default: break;
     }
@@ -1700,6 +1770,61 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 97 "flacmp.y"
+#line 115 "flacmp.y"
 
 
+void crf(){
+	printf("\n\n");
+	printf("⠀⠀⠀⠀⠀⠱⣶⣶⣶⣶⣶⣦⣤⣀⠀⠀⠀⠀⠀⠀\n");
+    printf("⠀⠀⠀⠀⢀⣤⣵⣶⣾⣷⣀⠈⠛⢿⣷⡄⠀⠀⠀⣠\n");
+    printf("⠀⠀⢀⣾⠟⠋⣭⣯⠙⠿⠸⣿⣿⠎⣿⣿⣎⠿⣿⡿\n");
+    printf("⠀⢰⣿⠏⠀⠀⣿⣿⠀⠀⠀⣿⣿⠀⣿⣿⠋⠀⠙⠁\n");
+    printf("⣤⣿⣿⠀⠀⠀⣿⣿⠀⠀⠀⣿⣿⢀⣿⠏⠀⠀⠀⠀\n");
+    printf("⠸⣿⣿⡀⠀⠀⣿⣿⣶⣦⣤⣛⢿⣾⣷⣶⣶⣾⠀⠀\n");
+    printf("⠀⠙⣿⣷⡀⠀⣿⣿⠀⠈⠙⢿⣷⡄⠀⠈⢻⠏⠀⠀\n");
+    printf("⠀⠀⠈⠛⢿⣷⣯⣭⣤⣤⡆⣷⡝⣿⣆⠀⠀⠀⠀⠀\n");
+    printf("⠀⠀⠀⠀⠀⠀⣯⣭⠉⠉⢀⣿⣿⠈⢿⣷⣤⣤⡴⠀\n");
+    printf("⠀⠀⠀⠀⠀⠰⢿⣿⣆⠀⠼⣿⣿⡄⠈⠻⠿⠟⠁⠀\n\n");
+}
+
+
+void deuRuim(){
+	printf("\n\n");
+	printf("__________████████_____██████\n");
+    printf("_________█░░░░░░░░██_██░░░░░░█\n");
+    printf("________█░░░░░░░░░░░█░░░░░░░░░█\n");
+    printf("_______█░░░░░░░███░░░█░░░░░░░░░█\n");
+    printf("_______█░░░░███░░░███░█░░░████░█\n");
+    printf("______█░░░██░░░░░░░░███░██░░░░██\n");
+    printf("_____█░░░░░░░░░░░░░░░░░█░░░░░░░░███\n");
+    printf("____█░░░░░░░░░░░░░██████░░░░░████░░█\n");
+    printf("____█░░░░░░░░░█████░░░████░░██░░██░░█\n");
+    printf("___██░░░░░░░███░░░░░░░░░░█░░░░░░░░███\n");
+    printf("__█░░░░░░░░░░░░░░█████████░░█████████\n");
+    printf("_█░░░░░░░░░░█████_████___████_█████___█\n");
+    printf("_█░░░░░░░░░░█______█_███__█_____███_█___█\n");
+    printf("█░░░░░░░░░░░░█___████_████____██_██████\n");
+    printf("░░░░░░░░░░░░░█████████░░░████████░░░█\n");
+    printf("░░░░░░░░░░░░░░░░█░░░░░█░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░██░░░░█░░░░░░██\n");
+    printf("░░░░░░░░░░░░░░░░░░██░░░░░░░███████\n");
+    printf("░░░░░░░░░░░░░░░░██░░░░░░░░░░█░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("░░░░░░░░░░░█████████░░░░░░░░░░░░░░██\n");
+    printf("░░░░░░░░░░█▒▒▒▒▒▒▒▒███████████████▒▒█\n");
+    printf("░░░░░░░░░█▒▒███████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█\n");
+    printf("░░░░░░░░░█▒▒▒▒▒▒▒▒▒█████████████████\n");
+    printf("░░░░░░░░░░████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█\n");
+    printf("░░░░░░░░░░░░░░░░░░██████████████████\n");
+    printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("██░░░░░░░░░░░░░░░░░░░░░░░░░░░██\n");
+    printf("▓██░░░░░░░░░░░░░░░░░░░░░░░░██\n");
+    printf("▓▓▓███░░░░░░░░░░░░░░░░░░░░█\n");
+    printf("▓▓▓▓▓▓███░░░░░░░░░░░░░░░██\n");
+    printf("▓▓▓▓▓▓▓▓▓███████████████▓▓█\n");
+    printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██\n");
+    printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█\n");
+    printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n");
+}

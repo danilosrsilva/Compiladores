@@ -1,3 +1,10 @@
 FLAA = 10;
-FLAB = FLAA + FLAA;
-print FLAB;
+FAB = FLAA + FLAA;
+DIDI ajdjdjdjkkd
+FLAPRINT [FLAB];
+
+DIDI Exemplo de while
+ZICO [FLAA == 100] GOL
+    FLAPRINT [ 10 - 12];
+MENGO
+    

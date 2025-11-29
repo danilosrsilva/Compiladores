@@ -9,6 +9,7 @@ int yyerror(const char *s);
 char *build_file_name;
 int errorcount = 0;
 
+
 %}
 
 %option yylineno
@@ -17,7 +18,8 @@ int errorcount = 0;
 
 [ \t\r\n]               { }
 
-"print"                 { return TOK_PRINT; }
+"DIDI".*                { }
+
 "+"                     { return '+'; }
 "-"                     { return '-'; }
 "*"                     { return '*'; } 
@@ -26,6 +28,18 @@ int errorcount = 0;
 ")"                     { return ')'; }
 ";"                     { return ';'; }
 "="                     { return '='; }
+"["					    { return '['; }
+"]"					    { return ']'; }
+
+">"				        { return TOK_MAQ; }
+"<"				        { return TOK_MEQ; }
+"=="				    { return TOK_EQL; }
+"!="				    { return TOK_DDQ; }
+
+"FLAPRINT"                  { return TOK_PRINT; }
+"ZICO"                      { return TOK_WHILE; }
+"GOL"                       { return TOK_IBLC; }
+"MENGO"                     { return TOK_FBLC; }
 
 [0-9]+ {
     yylval.integer = atoi(yytext);
@@ -47,8 +61,7 @@ int errorcount = 0;
 %%
 
 int yyerror(const char *s) {
-    fprintf(stderr, "%d:%d: %s\n", 
-        yylineno, 0, s);
+    fprintf(stderr, "%d:%d: %s\n", yylineno, 0, s);
     errorcount++;
     return 1;
 }

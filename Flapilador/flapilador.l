@@ -1,25 +1,13 @@
 %{ 
-
 #include <stdio.h>
 
 class Node;
 
-#include "flapilador.tab.h"
-int yyerror(const char *s);
+#include "flapilador.tab.h"   /* gera YYSTYPE e tokens */
+int yyerror(const char *s); // Função de erro
 
 char *build_file_name;
 int errorcount = 0;
-
-    // "FLAMAIN"		           { return TOK_FLAMAIN; }
-    // "VAR"                       { return TOK_IF; }
-    // "GOL"                       { return TOK_IBLC; }
-    // "IMPEDIDO"                  { return TOK_ELSE; }
-    // "MENGO"                     { return TOK_FBLC; }
-    // "AND"                       { return TOK_AND; }
-    // "OR"                        { return TOK_OR; }
-    // "ZICO"                      { return TOK_WHILE; }
-    // "["					        { return '['; }
-    // "]"					        { return ']'; }
 
 %}
 
@@ -27,9 +15,9 @@ int errorcount = 0;
 
 %%
 
-[ \n\t\r]		            { }
+[ \t\r]		                { }
 "DIDI".*                    { }
-
+[\n]                        { return QL; }
 
 ";"                         { return ';'; }
 "+"					        { return '+'; }
@@ -39,9 +27,18 @@ int errorcount = 0;
 "("					        { return '('; }
 ")"					        { return ')'; }
 "="					        { return '='; }
+"["					        { return '['; }
+"]"					        { return ']'; }
 
-
-"print"		                { return TOK_PRINT; }
+"FLAPRINT"		            { return TOK_PRINT; }
+"FLAMAIN"		            { return TOK_FLAMAIN; }
+"VAR"                       { return TOK_IF; }
+"GOL"                       { return TOK_IBLC; }
+"IMPEDIDO"                  { return TOK_ELSE; }
+"MENGO"                     { return TOK_FBLC; }
+"AND"                       { return TOK_AND; }
+"OR"                        { return TOK_OR; }
+"ZICO"                      { return TOK_WHILE; }
 
 
 

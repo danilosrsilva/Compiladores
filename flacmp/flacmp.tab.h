@@ -55,9 +55,16 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     TOK_PRINT = 258,               /* TOK_PRINT  */
-    TOK_INT = 259,                 /* TOK_INT  */
-    TOK_FLT = 260,                 /* TOK_FLT  */
-    TOK_IDENT = 261                /* TOK_IDENT  */
+    TOK_WHILE = 259,               /* TOK_WHILE  */
+    TOK_IBLC = 260,                /* TOK_IBLC  */
+    TOK_FBLC = 261,                /* TOK_FBLC  */
+    TOK_MAQ = 262,                 /* TOK_MAQ  */
+    TOK_MEQ = 263,                 /* TOK_MEQ  */
+    TOK_EQL = 264,                 /* TOK_EQL  */
+    TOK_DDQ = 265,                 /* TOK_DDQ  */
+    TOK_INT = 266,                 /* TOK_INT  */
+    TOK_FLT = 267,                 /* TOK_FLT  */
+    TOK_IDENT = 268                /* TOK_IDENT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -66,14 +73,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 19 "flacmp.y"
+#line 22 "flacmp.y"
 
    int integer;
    float flt;
    char *name;
    Node *node;
 
-#line 77 "flacmp.tab.h"
+#line 84 "flacmp.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
