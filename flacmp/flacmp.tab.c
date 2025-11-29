@@ -67,13 +67,13 @@
 
 
 /* First part of user prologue.  */
-#line 2 "flapilador.y"
+#line 2 "flacmp.y"
 
 #include "nodes.h"
 int yyerror(const char *s);
 int yylex (void);
 
-#line 77 "flapilador.tab.c"
+#line 77 "flacmp.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -96,7 +96,7 @@ int yylex (void);
 #  endif
 # endif
 
-#include "flapilador.tab.h"
+#include "flacmp.tab.h"
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -509,8 +509,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    29,    29,    38,    42,    47,    50,    55,    59,    63,
-      68,    72,    76,    81,    84,    87,    90
+       0,    28,    28,    37,    43,    47,    52,    57,    61,    65,
+      69,    73,    77,    81,    85,    89,    93
 };
 #endif
 
@@ -1350,7 +1350,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: stmts  */
-#line 29 "flapilador.y"
+#line 28 "flacmp.y"
                 {
 	Program pg((yyvsp[0].node));
 	pg.printAst();
@@ -1359,124 +1359,124 @@ yyreduce:
 	vd.check(&pg);
 	//vd.printFoundVars();
 }
-#line 1363 "flapilador.tab.c"
+#line 1363 "flacmp.tab.c"
     break;
 
   case 3: /* stmts: stmts stmt  */
-#line 38 "flapilador.y"
+#line 37 "flacmp.y"
                        {
-      (yyvsp[-1].node)->append((yyvsp[0].node));
-      (yyval.node) = (yyvsp[-1].node);
-  }
-#line 1372 "flapilador.tab.c"
+	(yyvsp[-1].node)->append((yyvsp[0].node));
+	(yyval.node) = (yyvsp[-1].node);
+}
+#line 1372 "flacmp.tab.c"
     break;
 
   case 4: /* stmts: stmt  */
-#line 42 "flapilador.y"
-         {
-      (yyval.node) = new Stmts((yyvsp[0].node));
-  }
-#line 1380 "flapilador.tab.c"
+#line 43 "flacmp.y"
+             {
+	(yyval.node) = new Stmts((yyvsp[0].node));
+}
+#line 1380 "flacmp.tab.c"
     break;
 
   case 5: /* stmt: TOK_IDENT '=' expr ';'  */
-#line 47 "flapilador.y"
+#line 47 "flacmp.y"
                                     {
-      (yyval.node) = new Store((yyvsp[-3].name),(yyvsp[-1].node));
-  }
-#line 1388 "flapilador.tab.c"
+	(yyval.node) = new Store((yyvsp[-3].name),(yyvsp[-1].node));
+}
+#line 1388 "flacmp.tab.c"
     break;
 
   case 6: /* stmt: TOK_PRINT expr ';'  */
-#line 50 "flapilador.y"
-                         {
-      (yyval.node) = new Print((yyvsp[-1].node));
-  }
-#line 1396 "flapilador.tab.c"
+#line 52 "flacmp.y"
+                           {
+	(yyval.node) = new Print((yyvsp[-1].node));
+}
+#line 1396 "flacmp.tab.c"
     break;
 
   case 7: /* expr: expr '+' term  */
-#line 55 "flapilador.y"
+#line 57 "flacmp.y"
                          {
-      (yyval.node) = new BinaryOp((yyvsp[-2].node), '+', (yyvsp[0].node));
-  }
-#line 1404 "flapilador.tab.c"
+    (yyval.node) = new BinaryOp((yyvsp[-2].node), '+', (yyvsp[0].node));
+}
+#line 1404 "flacmp.tab.c"
     break;
 
   case 8: /* expr: expr '-' term  */
-#line 59 "flapilador.y"
-                      {
-      (yyval.node) = new BinaryOp((yyvsp[-2].node), '-', (yyvsp[0].node));
-  }
-#line 1412 "flapilador.tab.c"
+#line 61 "flacmp.y"
+                         {
+    (yyval.node) = new BinaryOp((yyvsp[-2].node), '-', (yyvsp[0].node));
+}
+#line 1412 "flacmp.tab.c"
     break;
 
   case 9: /* expr: term  */
-#line 63 "flapilador.y"
-         {
-      (yyval.node) = (yyvsp[0].node);
-  }
-#line 1420 "flapilador.tab.c"
+#line 65 "flacmp.y"
+            {
+    (yyval.node) = (yyvsp[0].node);
+}
+#line 1420 "flacmp.tab.c"
     break;
 
   case 10: /* term: term '*' factor  */
-#line 68 "flapilador.y"
+#line 69 "flacmp.y"
                            {
-      (yyval.node) = new BinaryOp((yyvsp[-2].node), '*', (yyvsp[0].node));
-  }
-#line 1428 "flapilador.tab.c"
+    (yyval.node) = new BinaryOp((yyvsp[-2].node), '*', (yyvsp[0].node));
+}
+#line 1428 "flacmp.tab.c"
     break;
 
   case 11: /* term: term '/' factor  */
-#line 72 "flapilador.y"
-                        {
-      (yyval.node) = new BinaryOp((yyvsp[-2].node), '/', (yyvsp[0].node));
-  }
-#line 1436 "flapilador.tab.c"
+#line 73 "flacmp.y"
+                           {
+    (yyval.node) = new BinaryOp((yyvsp[-2].node), '/', (yyvsp[0].node));
+}
+#line 1436 "flacmp.tab.c"
     break;
 
   case 12: /* term: factor  */
-#line 76 "flapilador.y"
-           {
-      (yyval.node) = (yyvsp[0].node);
-  }
-#line 1444 "flapilador.tab.c"
+#line 77 "flacmp.y"
+              {
+    (yyval.node) = (yyvsp[0].node);
+}
+#line 1444 "flacmp.tab.c"
     break;
 
   case 13: /* factor: '(' expr ')'  */
-#line 81 "flapilador.y"
+#line 81 "flacmp.y"
                       {
-      (yyval.node) = (yyvsp[-1].node);
-  }
-#line 1452 "flapilador.tab.c"
+    (yyval.node) = (yyvsp[-1].node);
+}
+#line 1452 "flacmp.tab.c"
     break;
 
   case 14: /* factor: TOK_INT  */
-#line 84 "flapilador.y"
-                     {
-      (yyval.node) = new ConstInteger((yyvsp[0].integer));
-  }
-#line 1460 "flapilador.tab.c"
+#line 85 "flacmp.y"
+                          {
+    (yyval.node) = new ConstInteger((yyvsp[0].integer));
+}
+#line 1460 "flacmp.tab.c"
     break;
 
   case 15: /* factor: TOK_FLT  */
-#line 87 "flapilador.y"
-                 {
-      (yyval.node) = new ConstDouble((yyvsp[0].flt));
-  }
-#line 1468 "flapilador.tab.c"
+#line 89 "flacmp.y"
+                      {
+    (yyval.node) = new ConstDouble((yyvsp[0].flt));
+}
+#line 1468 "flacmp.tab.c"
     break;
 
   case 16: /* factor: TOK_IDENT  */
-#line 90 "flapilador.y"
-                  {
-      (yyval.node) = new Load((yyvsp[0].name));
-  }
-#line 1476 "flapilador.tab.c"
+#line 93 "flacmp.y"
+                       {
+    (yyval.node) = new Load((yyvsp[0].name));
+}
+#line 1476 "flacmp.tab.c"
     break;
 
 
-#line 1480 "flapilador.tab.c"
+#line 1480 "flacmp.tab.c"
 
       default: break;
     }
@@ -1700,6 +1700,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 95 "flapilador.y"
+#line 97 "flacmp.y"
 
 

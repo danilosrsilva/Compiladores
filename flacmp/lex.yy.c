@@ -370,8 +370,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 16
-#define YY_END_OF_BUFFER 17
+#define YY_NUM_RULES 15
+#define YY_END_OF_BUFFER 16
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -379,12 +379,11 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[34] =
+static const flex_int16_t yy_accept[29] =
     {   0,
-        0,    0,   17,   15,    1,    1,    8,    9,    6,    4,
-        5,    7,   12,    3,   10,   15,   15,   15,   13,   12,
-        0,    0,    0,   13,    0,   14,    0,    2,   14,    0,
-        2,   11,    0
+        0,    0,   16,   14,    1,    1,    7,    8,    5,    3,
+        4,    6,   11,    9,   10,   14,   14,    0,   11,    0,
+        0,   12,   13,    0,   13,    0,    2,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -395,13 +394,13 @@ static const YY_CHAR yy_ec[256] =
         1,    2,    1,    1,    1,    1,    1,    1,    1,    4,
         5,    6,    7,    1,    8,    9,   10,   11,   11,   11,
        11,   11,   11,   11,   11,   11,   11,    1,   12,    1,
-       13,    1,    1,    1,   14,   15,   15,   16,   15,   17,
-       15,   15,   18,   15,   15,   19,   15,   15,   15,   15,
+       13,    1,    1,    1,   14,   15,   15,   15,   15,   16,
+       15,   15,   15,   15,   15,   17,   15,   15,   15,   15,
        15,   15,   15,   15,   15,   15,   15,   15,   15,   15,
         1,    1,    1,    1,   15,    1,   14,   15,   15,   15,
 
-       15,   17,   15,   15,   20,   15,   15,   19,   15,   21,
-       15,   22,   15,   23,   15,   24,   15,   15,   15,   15,
+       15,   16,   15,   15,   18,   15,   15,   17,   15,   19,
+       15,   20,   15,   21,   15,   22,   15,   15,   15,   15,
        15,   15,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -419,55 +418,51 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[25] =
+static const YY_CHAR yy_meta[23] =
     {   0,
-        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
-        3,    1,    1,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        2,    1,    1,    2,    2,    2,    2,    2,    2,    2,
+        2,    2
     } ;
 
-static const flex_int16_t yy_base[36] =
+static const flex_int16_t yy_base[30] =
     {   0,
-        0,    0,   43,   44,   44,   44,   44,   44,   44,   44,
-       44,   44,   16,   44,   44,   24,   22,   17,   28,   17,
-       22,   23,   16,   24,   16,    0,   12,    0,    0,    8,
-        0,   44,   44,   27,   28
+        0,    0,   36,   37,   37,   37,   37,   37,   37,   37,
+       37,   37,   14,   37,   37,   18,   13,   22,   15,   18,
+       13,   19,    0,   10,    0,    6,   37,   37,   25
     } ;
 
-static const flex_int16_t yy_def[36] =
+static const flex_int16_t yy_def[30] =
     {   0,
-       33,    1,   33,   33,   33,   33,   33,   33,   33,   33,
-       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
-       33,   33,   33,   33,   33,   34,   33,   35,   34,   33,
-       35,   33,    0,   33,   33
+       28,    1,   28,   28,   28,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28,   28,
+       28,   28,   29,   28,   29,   28,   28,    0,   28
     } ;
 
-static const flex_int16_t yy_nxt[69] =
+static const flex_int16_t yy_nxt[60] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,    4,   12,
-       13,   14,   15,    4,    4,   16,   17,    4,    4,    4,
-        4,   18,    4,    4,   19,   19,   20,   20,   31,   29,
-       31,   32,   30,   28,   24,   27,   26,   25,   24,   23,
-       22,   21,   33,    3,   33,   33,   33,   33,   33,   33,
-       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
-       33,   33,   33,   33,   33,   33,   33,   33
+       13,   14,   15,    4,    4,   16,    4,    4,    4,   17,
+        4,    4,   18,   18,   19,   19,   25,   27,   26,   22,
+       24,   23,   22,   21,   20,   28,    3,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28
     } ;
 
-static const flex_int16_t yy_chk[69] =
+static const flex_int16_t yy_chk[60] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,   13,   20,   13,   20,   35,   34,
-       35,   30,   27,   25,   24,   23,   22,   21,   19,   18,
-       17,   16,    3,   33,   33,   33,   33,   33,   33,   33,
-       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
-       33,   33,   33,   33,   33,   33,   33,   33
+        1,    1,   13,   19,   13,   19,   29,   26,   24,   22,
+       21,   20,   18,   17,   16,    3,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[17] =
+static const flex_int32_t yy_rule_can_match_eol[16] =
     {   0,
-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
+1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -483,32 +478,20 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "flapilador.l"
-#line 2 "flapilador.l"
-
+#line 1 "flacmp.l"
+#line 2 "flacmp.l"
 #include <stdio.h>
 
 class Node;
 
-#include "flapilador.tab.h"
+#include "flacmp.tab.h"
 int yyerror(const char *s);
 
 char *build_file_name;
 int errorcount = 0;
 
-    // "FLAMAIN"		           { return TOK_FLAMAIN; }
-    // "VAR"                       { return TOK_IF; }
-    // "GOL"                       { return TOK_IBLC; }
-    // "IMPEDIDO"                  { return TOK_ELSE; }
-    // "MENGO"                     { return TOK_FBLC; }
-    // "AND"                       { return TOK_AND; }
-    // "OR"                        { return TOK_OR; }
-    // "ZICO"                      { return TOK_WHILE; }
-    // "["					        { return '['; }
-    // "]"					        { return ']'; }
-
-#line 511 "lex.yy.c"
-#line 512 "lex.yy.c"
+#line 494 "lex.yy.c"
+#line 495 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -725,10 +708,10 @@ YY_DECL
 		}
 
 	{
-#line 28 "flapilador.l"
+#line 16 "flacmp.l"
 
 
-#line 732 "lex.yy.c"
+#line 715 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -755,13 +738,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 34 )
+				if ( yy_current_state >= 29 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 44 );
+		while ( yy_base[yy_current_state] != 37 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -798,94 +781,89 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 30 "flapilador.l"
+#line 18 "flacmp.l"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 31 "flapilador.l"
-{ }
+#line 20 "flacmp.l"
+{ return TOK_PRINT; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 34 "flapilador.l"
-{ return ';'; }
+#line 21 "flacmp.l"
+{ return '+'; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 35 "flapilador.l"
-{ return '+'; }
+#line 22 "flacmp.l"
+{ return '-'; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 36 "flapilador.l"
-{ return '-'; }
+#line 23 "flacmp.l"
+{ return '*'; } 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 37 "flapilador.l"
-{ return '*'; }
+#line 24 "flacmp.l"
+{ return '/'; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 38 "flapilador.l"
-{ return '/'; }
+#line 25 "flacmp.l"
+{ return '('; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 39 "flapilador.l"
-{ return '('; }
+#line 26 "flacmp.l"
+{ return ')'; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 40 "flapilador.l"
-{ return ')'; }
+#line 27 "flacmp.l"
+{ return ';'; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 41 "flapilador.l"
+#line 28 "flacmp.l"
 { return '='; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 44 "flapilador.l"
-{ return TOK_PRINT; }
+#line 30 "flacmp.l"
+{
+    yylval.integer = atoi(yytext);
+    return TOK_INT;
+}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 48 "flapilador.l"
+#line 35 "flacmp.l"
 {
-                            yylval.integer = atoi(yytext); 
-                            return TOK_INT; 
-                            }
+    yylval.flt = atof(yytext);
+    return TOK_FLT;
+}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 52 "flapilador.l"
-{ 
-                            yylval.flt = atoi(yytext); 
-                            return TOK_FLT;
-                            }
+#line 40 "flacmp.l"
+{
+    yylval.name = strndup(yytext, yyleng);
+    return TOK_IDENT;
+}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 56 "flapilador.l"
-{ 
-                            yylval.name = strdup(yytext);
-                            return TOK_IDENT; 
-                            }
+#line 45 "flacmp.l"
+{ printf("Caractere não presente no alfabeto %c\n", yytext[0] ); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 61 "flapilador.l"
-{ printf("Flactere não presente no alfabeto %c \n", yytext[0]);}
-	YY_BREAK
-case 16:
-YY_RULE_SETUP
-#line 63 "flapilador.l"
+#line 47 "flacmp.l"
 ECHO;
 	YY_BREAK
-#line 889 "lex.yy.c"
+#line 867 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1182,7 +1160,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 34 )
+			if ( yy_current_state >= 29 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1210,11 +1188,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 34 )
+		if ( yy_current_state >= 29 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 33);
+	yy_is_jam = (yy_current_state == 28);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1902,8 +1880,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 63 "flapilador.l"
-
+#line 47 "flacmp.l"
 
 
 int yyerror(const char *s) {
@@ -1940,3 +1917,5 @@ int main(int argc, char *argv[]) {
     
     return errorcount;
 }
+
+

@@ -26,7 +26,7 @@
     - GOL - Início de bloco de código
     - IMPEDIDO - Bloco else
     - MENGO - Fim de bloco
-    -  FLAPRINT - Função de impressão
+    - FLAPRINT - Função de impressão
     - DIDI - Comenta a linha
 
 # Operadores:

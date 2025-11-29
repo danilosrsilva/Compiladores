@@ -1,0 +1,3 @@
+FLAA = 10;
+FLAB = FLAA + FLAA;
+print FLAB;

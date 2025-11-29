@@ -1,10 +1,6 @@
 all:
 	flex flapilador.l
 	bison -d flapilador.y
-	gcc flapilador.tab.c lex.yy.c -o cmp
-	# ./cmp < testes/teste1.txt
-	# ./cmp < testes/teste2.txt
-	# ./cmp < testes/teste3.txt
-	# ./cmp < testes/teste4.txt
-	# ./cmp < testes/teste5.txt
-	# ./cmp < testes/teste6.txt
+	g++ -std=c++2a -g -O1 *.c -o cmp
+	./cmp < teste1.txt
+	
