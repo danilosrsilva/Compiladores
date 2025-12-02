@@ -58,13 +58,21 @@ extern int yydebug;
     TOK_WHILE = 259,               /* TOK_WHILE  */
     TOK_IBLC = 260,                /* TOK_IBLC  */
     TOK_FBLC = 261,                /* TOK_FBLC  */
-    TOK_MAQ = 262,                 /* TOK_MAQ  */
-    TOK_MEQ = 263,                 /* TOK_MEQ  */
-    TOK_EQL = 264,                 /* TOK_EQL  */
-    TOK_DDQ = 265,                 /* TOK_DDQ  */
-    TOK_INT = 266,                 /* TOK_INT  */
-    TOK_FLT = 267,                 /* TOK_FLT  */
-    TOK_IDENT = 268                /* TOK_IDENT  */
+    TOK_IF = 262,                  /* TOK_IF  */
+    TOK_ELSE = 263,                /* TOK_ELSE  */
+    TOK_AND = 264,                 /* TOK_AND  */
+    TOK_OR = 265,                  /* TOK_OR  */
+    TOK_MAQ = 266,                 /* TOK_MAQ  */
+    TOK_MEQ = 267,                 /* TOK_MEQ  */
+    TOK_EQL = 268,                 /* TOK_EQL  */
+    TOK_DDQ = 269,                 /* TOK_DDQ  */
+    TOK_TPINT = 270,               /* TOK_TPINT  */
+    TOK_TPFLT = 271,               /* TOK_TPFLT  */
+    TOK_TPSTR = 272,               /* TOK_TPSTR  */
+    TOK_INT = 273,                 /* TOK_INT  */
+    TOK_FLT = 274,                 /* TOK_FLT  */
+    TOK_IDENT = 275,               /* TOK_IDENT  */
+    TOK_STR = 276                  /* TOK_STR  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -73,14 +81,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 22 "flacmp.y"
+#line 25 "flacmp.y"
 
    int integer;
    float flt;
    char *name;
+   char *str;
    Node *node;
 
-#line 84 "flacmp.tab.h"
+#line 93 "flacmp.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

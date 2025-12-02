@@ -1,0 +1,15 @@
+FLA
+
+    FLAA INT = 10;
+    FLAB INT = 5;
+
+    DIDI Comentários da linguagem 
+
+    flastr STR = "FLAMENGO TETRA";
+
+    DIDI Exemplo de IF
+    VAR [ ( FLAA > 2 )  OR ( FLAB == 5 ) ] FLA 
+        FLAPRINT [ flastr ] ; 
+    MENGO
+
+MENGO

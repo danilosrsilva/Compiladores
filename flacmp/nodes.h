@@ -38,6 +38,7 @@ class Node {
     
 };
 
+//Casos onde variavel é instanciada 
 class Load: public Node {
 	protected:
 		string name;
@@ -53,25 +54,59 @@ class Load: public Node {
 		}
 };
 
+//Casos onde variavel receber algum valor 
+// --- Load2: representa atribuição/uso de variável (ex.: x = expr) ---
+class Load2: public Node {
+protected:
+    string name;
+public:
+    Load2(string name, Node *expr) {
+        this->name = name;
+        if (expr) this->append(expr);
+    }
+
+    string astLabel() override {
+        return name;
+    }
+
+    string getName(){
+        return name;
+    }
+};
+
+
+// Registra variaveis declaradas
 class Store: public Node {
 	protected:
 		string name;
+		string type;
 	public:
-		Store(string name, Node *expr) {
+		Store(string name,const string &type, Node *expr) {
 			this->name = name;
+			this->type = type;
 			this->append(expr);
 		}
+		// string astLabel() override {
+		// string r;
+		// r.append("store ");
+		// r.append(name);
+		// return r;
+		// }
+
 		string astLabel() override {
-		string r;
-		r.append("store ");
-		r.append(name);
-		return r;
-		}
+        return "decl: " + type + ": " + name;
+    	}
 		
 		string getName(){
 			return name;
 		}
+
+		string getType(){
+			return type;
+		}
 };
+
+
 
 class ConstInteger: public Node {
 	protected:
@@ -98,7 +133,8 @@ class ConstDouble: public Node {
 		}
 };
 
-class ConstString : public Node{
+class ConstString : public Node
+{
 protected:
     string value;
 
@@ -140,21 +176,51 @@ class Print :  public Node{
 			
 		string astLabel() override {
 		string r;
-		r.append("print ");
+		r.append("print: ");
 		r.append(children[0]->astLabel());
 		return r;
 		}
 };
 
 class While: public Node {
+	protected:
+	public:
+		While(Node *logical, Node *stmts) {
+			this->append(logical); 
+			this->append(stmts);  
+		}
+
+		string astLabel() override {
+			return "while:";
+		}
+};
+
+class IF: public Node {
+	protected:
+	public:
+		IF(Node *logical, Node *stmts) {
+			this->append(logical); 
+			this->append(stmts);  
+		}
+
+		string astLabel() override {
+			return "IF:";
+		}
+};
+
+
+class Logico: public Node {
+protected:
+    string oper;
 public:
-    While(Node *logical, Node *stmts) {
-        this->append(logical); 
-        this->append(stmts);  
+    Logico(Node *le, const string &op, Node *re) {
+        this->oper = op;
+        this->append(le); 
+        this->append(re); 
     }
 
     string astLabel() override {
-        return "while";
+        return oper;
     }
 };
 
@@ -221,32 +287,57 @@ class Program: public Node{
 	};
 
 class SemanticVarDecl {
-	private:
-		set<string> vars;
-	public:
-		void check(Node *n){
-			for(Node *c: n->getChildren()){
-				check(c);
-			}
-			
-			Store *store = dynamic_cast<Store*>(n);
-			if(store != NULL){
-				vars.insert(store->getName());
-			}
-			Load *load = dynamic_cast<Load*>(n);
-			if(load != NULL ){
-				string vname = load->getName();
-				if(vars.count(load->getName()) ==0){
-					extern char* build_file_name;
-					cerr << build_file_name << ":" << load->getLineNo() << ": ";
-					cerr << "Var " << vname << " not found.\n";
-				}
-			}
-		}
-		// usar cout e vars com <<
-		void printFoundVars(){
-			for(string v : vars){
-			cout << "Found: " << v << "\n";
-			}
-		}
+private:
+    set<string> vars; // mantém as variáveis declaradas
+
+public:
+    void check(Node *n){
+        for (Node *c : n->getChildren()) {
+
+            // 1) verificação para declaração (Store)
+            if (Store *store = dynamic_cast<Store*>(c)) {
+                string name = store->getName();
+
+                // se já existir na tabela: ERRO
+                if (vars.count(name) > 0) {
+                    extern char *build_file_name;
+                    cerr << (build_file_name ? build_file_name : "") 
+                         << ":" << store->getLineNo() << ": "
+                         << "Semantic error: variable '" << name 
+                         << "' already declared.\n";
+                } else {
+                    vars.insert(name); // registra declaração
+                }
+            }
+
+            // 2) verificação para uso (Load)
+            else if (Load *load = dynamic_cast<Load*>(c)) {
+                string vname = load->getName();
+                if (vars.count(vname) == 0) {
+                    extern char* build_file_name;
+                    cerr << (build_file_name ? build_file_name : "") 
+                         << ":" << load->getLineNo() << ": "
+                         << "Semantic error: variable '" << vname 
+                         << "' not declared.\n";
+                }
+            }
+
+            // 3) verificação para uso (Load2 - atribuição)
+            else if (Load2 *load2 = dynamic_cast<Load2*>(c)) {
+                string vname = load2->getName();
+                if (vars.count(vname) == 0) {
+                    extern char* build_file_name;
+                    cerr << (build_file_name ? build_file_name : "") 
+                         << ":" << load2->getLineNo() << ": "
+                         << "Semantic error: assignment to undeclared variable '" 
+                         << vname << "'.\n";
+                }
+            }
+
+            // 4) descida recursiva
+            check(c);
+        }
+    }
 };
+
+

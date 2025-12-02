@@ -1,12 +1,11 @@
-FLAA = 10;
-FLAB = FLAA + FLAA;
-DIDI ajdjdjdjkkd
-FLAPRINT [FLAB];
+FLA
 
-DIDI Exemplo de while
-ZICO [FLAs == 100] GOL
-    flat = 2;
-    flay = 3/1;
-    FLAPRINT [ 10 - 12];
+FLAA INT = 10;
+FLAB INT = 5;
+DIDI FLAA STR = "cdf";
+flastr STR = "FLAMENGO TETRA";
+VAR [ ( FLAA > 2 )  OR ( FLAB == 5 ) ] FLA 
+    FLAPRINT [ flastr ] ; 
 MENGO
-    
+
+MENGO

@@ -13,6 +13,7 @@ int errorcount = 0;
 %}
 
 %option yylineno
+%option noyywrap
 
 %%
 
@@ -35,21 +36,12 @@ int errorcount = 0;
 "<"				        { return TOK_MEQ; }
 "=="				    { return TOK_EQL; }
 "!="				    { return TOK_DDQ; }
-"AND"                   { return TOK_AND; }
-"OR"                    { return TOK_OR;  }
 
 "FLAPRINT"                  { return TOK_PRINT; }
 "ZICO"                      { return TOK_WHILE; }
-"FLA"                       { return TOK_IBLC; }
+"GOL"                       { return TOK_IBLC; }
 "MENGO"                     { return TOK_FBLC; }
-"VAR"                       { return TOK_IF; }
-"IMPEDIDO"                  { return TOK_ELSE; }
 
-
-
-"INT"                       { return TOK_TPINT; }
-"FLOAT"                     { return TOK_TPFLT; }
-"STR"                       { return TOK_TPSTR; }
 
 [0-9]+ {
     yylval.integer = atoi(yytext);
@@ -61,17 +53,19 @@ int errorcount = 0;
     return TOK_FLT;
 }
 
-[fF][lL][aA][a-zA-Z0-9_]+ {
-    yylval.name = strndup(yytext, yyleng);
-    return TOK_IDENT;
-}
-
 \"[^\"]*\"  { 
     size_t len = yyleng - 2;                 
     yylval.name = (char*)malloc(len + 1);     
     strncpy(yylval.name, yytext + 1, len);      
     yylval.name[len] = '\0';                     
     return TOK_STR; 
+}
+
+
+
+[fF][lL][aA][a-zA-Z0-9_]* {
+    yylval.name = strndup(yytext, yyleng);
+    return TOK_IDENT;
 }
 
 .                       { printf("Caractere não presente no alfabeto %c\n", yytext[0] ); }

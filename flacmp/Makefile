@@ -2,4 +2,7 @@ all:
 	flex flacmp.l
 	bison -d flacmp.y
 	g++ -std=c++2a -g -O1 *.c -o flacmp 
-	./flacmp teste1.txt
+	# ./flacmp teste1.txt
+	./flacmp testes/aceita1.txt
+	./flacmp testes/aceita2.txt
+	./flacmp testes/aceita3.txt
