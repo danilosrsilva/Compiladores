@@ -1,15 +1,20 @@
 FLA
 
     FLAA INT;
-    FLAB INT = 5;
+    FLAB FLOAT = 5;
 
     DIDI Comentários da linguagem 
 
+    FLAA = 9;
+
     flastr STR = "FLAMENGO TETRA";
+    flamsg STR = "FLAMENGO CAMPEAO";
 
     DIDI Exemplo de IF
-    VAR [ ( FLAA > 2 )  OR ( FLAB == 5 ) ] FLA 
-        FLAPRINT [ flastr ] ; 
+    VAR [ ( FLAB > 2 )  OR ( FLAB == 5 ) ] FLA 
+        FLAPRINT [ flastr ] ;
+    IMPEDIDO
+        FLAPRINT [ flamsg ] ;
     MENGO
 
 MENGO

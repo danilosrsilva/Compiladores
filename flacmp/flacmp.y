@@ -17,7 +17,7 @@ void deuRuim();
 %token<name> TOK_IDENT
 %token<str> TOK_STR
 
-%type<node> factor term expr logico condicional stmt stmts program
+%type<node> factor term expr logico condicional if stmt stmts program
 %type<name> tipo 
 
 %start program
@@ -37,9 +37,11 @@ program : TOK_IBLC stmts TOK_FBLC {
 	pg.printAst();
     // crf();
 	
-	SemanticVarDecl vd;
-	vd.check(&pg);
 	//vd.printFoundVars();
+    ValidacaoSemanticas vs;
+    vs.check(&pg);           
+    vs.VerificaInicializacao();      
+    vs.VariavelUsada();             
 }
 
 stmts : stmts[ss] stmt {
@@ -66,10 +68,18 @@ stmt : TOK_IDENT[id] '=' expr[e] ';'{
   | TOK_WHILE '[' logico ']' TOK_IBLC stmts TOK_FBLC {
       $$ = new While($logico, $stmts);
   } 
-  | TOK_IF '[' logico ']' TOK_IBLC stmts TOK_FBLC {
-        $$ = new IF($logico, $stmts);
+  | if {
+        $$ = $if;
   }
   ;
+
+if:  TOK_IF '[' logico ']' TOK_IBLC stmts TOK_FBLC {
+        $$ = new IF($logico, $stmts);
+    }
+    | TOK_IF '[' logico ']' TOK_IBLC stmts[ss1]  TOK_ELSE stmts[ss2] TOK_FBLC {
+            $$ = new IFELSE($logico, $ss1, $ss2);
+    }
+    ;
 
 
 tipo

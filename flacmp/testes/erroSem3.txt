@@ -1,0 +1,8 @@
+FLA
+    flasemantico STR;
+
+    flaA INT = 1;
+    FLAb INT = 2;
+
+    FLAPRINT [ flaA + FLAb ];
+MENGO

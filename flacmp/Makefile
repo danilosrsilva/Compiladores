@@ -5,8 +5,8 @@ all:
 
 
 	./flacmp testes/aceita1.txt
-	#./flacmp testes/aceita2.txt
-	#./flacmp testes/aceita3.txt
+	./flacmp testes/aceita2.txt
+	./flacmp testes/aceita3.txt
 
 	#./flacmp testes/erroSin1.txt
 	#./flacmp testes/erroSin2.txt
