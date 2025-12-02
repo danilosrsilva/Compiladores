@@ -11,11 +11,12 @@ void deuRuim();
 
 %token TOK_PRINT TOK_WHILE TOK_IBLC TOK_FBLC
 %token TOK_MAQ TOK_MEQ TOK_EQL TOK_DDQ
+%token TOK_TPINT TOK_TPFLT TOK_TPSTR
 %token<integer> TOK_INT
 %token<flt> TOK_FLT
 %token<name> TOK_IDENT
 
-%type<node> factor term expr condicional stmt stmts program
+%type<node> factor term expr condicional tipo stmt stmts program
 
 %start program
 
@@ -47,7 +48,7 @@ stmts : stmts[ss] stmt {
   }
   ;
 
-stmt : TOK_IDENT[id] '=' expr[e] ';'{
+stmt : TOK_IDENT[id] tipo '=' expr[e] ';'{
       $$ = new Store($id,$e);
   }
   | TOK_PRINT '[' expr[e] ']' ';'{
@@ -56,7 +57,22 @@ stmt : TOK_IDENT[id] '=' expr[e] ';'{
   | TOK_WHILE '[' condicional ']' TOK_IBLC stmts TOK_FBLC {
       $$ = new While($condicional, $stmts);
   } 
+  | TOK_IDENT tipo ';'{
+    
+  }
   ;
+
+
+tipo: TOK_TPINT {
+
+    }
+    | TOK_TPFLT{
+
+    }
+    | TOK_TPSTR{
+
+    }
+    ;
 
 condicional : expr[le] TOK_MAQ expr[re] {
       $$ = new Condicional($le,">",$re);

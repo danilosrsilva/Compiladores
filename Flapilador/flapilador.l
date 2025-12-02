@@ -3,8 +3,8 @@
 
 class Node;
 
-#include "flapilador.tab.h"   /* gera YYSTYPE e tokens */
-int yyerror(const char *s); // Função de erro
+#include "flapilador.tab.h"   
+int yyerror(const char *s); 
 
 char *build_file_name;
 int errorcount = 0;

@@ -13,6 +13,7 @@ int errorcount = 0;
 %}
 
 %option yylineno
+%option noyywrap
 
 %%
 
@@ -41,6 +42,10 @@ int errorcount = 0;
 "GOL"                       { return TOK_IBLC; }
 "MENGO"                     { return TOK_FBLC; }
 
+"INT"                   { return TOK_TPINT;}
+"FLOAT"                 { return TOK_TPFLT;}
+"STRING"                { return TOK_TPSTR;}
+
 [0-9]+ {
     yylval.integer = atoi(yytext);
     return TOK_INT;
@@ -50,6 +55,16 @@ int errorcount = 0;
     yylval.flt = atof(yytext);
     return TOK_FLT;
 }
+
+\"[^\"]*\"  { 
+    size_t len = yyleng - 2;                 
+    yylval.name = (char*)malloc(len + 1);     
+    strncpy(yylval.name, yytext + 1, len);      
+    yylval.name[len] = '\0';                     
+    return TOK_STR; 
+}
+
+
 
 [fF][lL][aA][a-zA-Z0-9_]* {
     yylval.name = strndup(yytext, yyleng);
@@ -62,6 +77,44 @@ int errorcount = 0;
 
 int yyerror(const char *s) {
     fprintf(stderr, "%d:%d: %s\n", yylineno, 0, s);
+    printf("\n");
+        printf("__________████████_____██████\n");
+        printf("_________█░░░░░░░░██_██░░░░░░█\n");
+        printf("________█░░░░░░░░░░░█░░░░░░░░░█\n");
+        printf("_______█░░░░░░░███░░░█░░░░░░░░░█\n");
+        printf("_______█░░░░███░░░███░█░░░████░█\n");
+        printf("______█░░░██░░░░░░░░███░██░░░░██\n");
+        printf("_____█░░░░░░░░░░░░░░░░░█░░░░░░░░███\n");
+        printf("____█░░░░░░░░░░░░░██████░░░░░████░░█\n");
+        printf("____█░░░░░░░░░█████░░░████░░██░░██░░█\n");
+        printf("___██░░░░░░░███░░░░░░░░░░█░░░░░░░░███\n");
+        printf("__█░░░░░░░░░░░░░░█████████░░█████████\n");
+        printf("_█░░░░░░░░░░█████_████___████_█████___█\n");
+        printf("_█░░░░░░░░░░█______█_███__█_____███_█___█\n");
+        printf("█░░░░░░░░░░░░█___████_████____██_██████\n");
+        printf("░░░░░░░░░░░░░█████████░░░████████░░░█\n");
+        printf("░░░░░░░░░░░░░░░░█░░░░░█░░░░░░░░░░░░█\n");
+        printf("░░░░░░░░░░░░░░░░░░░░██░░░░█░░░░░░██\n");
+        printf("░░░░░░░░░░░░░░░░░░██░░░░░░░███████\n");
+        printf("░░░░░░░░░░░░░░░░██░░░░░░░░░░█░░░░░█\n");
+        printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+        printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+        printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+        printf("░░░░░░░░░░░█████████░░░░░░░░░░░░░░██\n");
+        printf("░░░░░░░░░░█▒▒▒▒▒▒▒▒███████████████▒▒█\n");
+        printf("░░░░░░░░░█▒▒███████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█\n");
+        printf("░░░░░░░░░█▒▒▒▒▒▒▒▒▒█████████████████\n");
+        printf("░░░░░░░░░░████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█\n");
+        printf("░░░░░░░░░░░░░░░░░░██████████████████\n");
+        printf("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░█\n");
+        printf("██░░░░░░░░░░░░░░░░░░░░░░░░░░░██\n");
+        printf("▓██░░░░░░░░░░░░░░░░░░░░░░░░██\n");
+        printf("▓▓▓███░░░░░░░░░░░░░░░░░░░░█\n");
+        printf("▓▓▓▓▓▓███░░░░░░░░░░░░░░░██\n");
+        printf("▓▓▓▓▓▓▓▓▓███████████████▓▓█\n");
+        printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██\n");
+        printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█\n");
+        printf("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n");
     errorcount++;
     return 1;
 }
@@ -70,11 +123,12 @@ int yywrap() {
     return 1;
 }
 
+
+
 int main(int argc, char *argv[]) {
-    
+
     if (argc <= 1) {
-        fprintf(stderr, "Sintaxe: %s nome_do_programa\n",
-            argv[0]);
+        fprintf(stderr, "Sintaxe: %s nome_do_programa\n", argv[0]);
         return 1;
     }
 

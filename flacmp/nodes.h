@@ -98,6 +98,23 @@ class ConstDouble: public Node {
 		}
 };
 
+class ConstString : public Node{
+protected:
+    string value;
+
+public:
+    ConstString(string value)
+    {
+        this->value = value;
+    }
+
+    string astLabel() override
+    {
+        return value;
+    }
+};
+
+
 class BinaryOp: public Node {
 	protected:
 		char oper;
@@ -132,8 +149,8 @@ class Print :  public Node{
 class While: public Node {
 public:
     While(Node *logical, Node *stmts) {
-        this->append(logical); // children[0] = condição do while
-        this->append(stmts);   // children[1] = bloco de comandos
+        this->append(logical); 
+        this->append(stmts);  
     }
 
     string astLabel() override {
@@ -147,8 +164,8 @@ protected:
 public:
     Condicional(Node *le, const string &op, Node *re) {
         this->oper = op;
-        this->append(le); // children[0] = expressão da esquerda
-        this->append(re); // children[1] = expressão da direita
+        this->append(le); 
+        this->append(re); 
     }
 
     string astLabel() override {
