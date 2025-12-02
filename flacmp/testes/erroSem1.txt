@@ -1,13 +1,10 @@
 FLA
 
-    FLAA INT;
-    FLAB INT = 5;
-
-    DIDI Comentários da linguagem 
-
+    DIDI erro semântico de variável não declarada
+    FLAA = 10;
+    FLAB = 5;
+    DIDI FLAA STR = "cdf";
     flastr STR = "FLAMENGO TETRA";
-
-    DIDI Exemplo de IF
     VAR [ ( FLAA > 2 )  OR ( FLAB == 5 ) ] FLA 
         FLAPRINT [ flastr ] ; 
     MENGO

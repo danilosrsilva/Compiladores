@@ -38,7 +38,7 @@ class Node {
     
 };
 
-//Casos onde variavel é instanciada 
+//Casos onde variavel é instanciada LoadDecl
 class Load: public Node {
 	protected:
 		string name;
@@ -55,12 +55,11 @@ class Load: public Node {
 };
 
 //Casos onde variavel receber algum valor 
-// --- Load2: representa atribuição/uso de variável (ex.: x = expr) ---
-class Load2: public Node {
+class LoadComValor: public Node {
 protected:
     string name;
 public:
-    Load2(string name, Node *expr) {
+    LoadComValor(string name, Node *expr) {
         this->name = name;
         if (expr) this->append(expr);
     }
@@ -75,15 +74,17 @@ public:
 };
 
 
-// Registra variaveis declaradas
+// Registra variaveis declaradas já com valor
 class Store: public Node {
 	protected:
 		string name;
 		string type;
+		bool usado;
 	public:
 		Store(string name,const string &type, Node *expr) {
 			this->name = name;
 			this->type = type;
+			this->usado = true;
 			this->append(expr);
 		}
 		// string astLabel() override {
@@ -104,8 +105,41 @@ class Store: public Node {
 		string getType(){
 			return type;
 		}
+
+		bool getUsado(){
+			return usado;
+		}
 };
 
+// Registra variaveis declaradas
+class StoreSemValor: public Node {
+	protected:
+		string name;
+		string type;
+		bool usado;
+	public:
+		StoreSemValor(string name,const string &type) {
+			this->name = name;
+			this->type = type;
+			this->usado = false;
+		}
+
+		string astLabel() override {
+        return "decl: " + type + ": " + name;
+    	}
+		
+		string getName(){
+			return name;
+		}
+
+		string getType(){
+			return type;
+		}
+
+		bool getUsado(){
+			return usado;
+		}
+};
 
 
 class ConstInteger: public Node {
@@ -270,6 +304,7 @@ class Program: public Node{
 			this->append(stmts);
 		}
 		void printAst(){
+			cout << "================================\n\n";
 			cout << "graph {\n";
 			cout << "N" << (long)(this)
 			<< "[label=\"Program\"]\n";
@@ -286,55 +321,73 @@ class Program: public Node{
 		}
 	};
 
+
+// Validacao semantica de declaracao e redeclaração de variaveis
 class SemanticVarDecl {
 private:
-    set<string> vars; // mantém as variáveis declaradas
+    set<string> vars; // variáveis declaradas
 
 public:
     void check(Node *n){
         for (Node *c : n->getChildren()) {
 
-            // 1) verificação para declaração (Store)
+            
             if (Store *store = dynamic_cast<Store*>(c)) {
                 string name = store->getName();
 
-                // se já existir na tabela: ERRO
                 if (vars.count(name) > 0) {
                     extern char *build_file_name;
                     cerr << (build_file_name ? build_file_name : "") 
                          << ":" << store->getLineNo() << ": "
-                         << "Semantic error: variable '" << name 
-                         << "' already declared.\n";
+                         << "Semantic error: variável '" << name 
+                         << "' já foi declarada.\n";
                 } else {
-                    vars.insert(name); // registra declaração
+                    vars.insert(name); 
                 }
             }
 
-            // 2) verificação para uso (Load)
+			else if (StoreSemValor *storesv = dynamic_cast<StoreSemValor*>(c)) {
+                string name = storesv->getName();
+
+                if (vars.count(name) > 0) {
+                    extern char *build_file_name;
+                    cerr << (build_file_name ? build_file_name : "") 
+                         << ":" << store->getLineNo() << ": "
+                         << "Semantic error: variável '" << name 
+                         << "' já foi declarada.\n";
+                } else {
+                    vars.insert(name); 
+                }
+            }
+           
             else if (Load *load = dynamic_cast<Load*>(c)) {
                 string vname = load->getName();
                 if (vars.count(vname) == 0) {
                     extern char* build_file_name;
                     cerr << (build_file_name ? build_file_name : "") 
                          << ":" << load->getLineNo() << ": "
-                         << "Semantic error: variable '" << vname 
-                         << "' not declared.\n";
+                         << "Semantic error: variável '" << vname 
+                         << "' não declarada.\n";
                 }
             }
 
-            // 3) verificação para uso (Load2 - atribuição)
-            else if (Load2 *load2 = dynamic_cast<Load2*>(c)) {
-                string vname = load2->getName();
+       
+            else if (LoadComValor *loadcomvalor = dynamic_cast<LoadComValor*>(c)) {
+                string vname = loadcomvalor->getName();
                 if (vars.count(vname) == 0) {
                     extern char* build_file_name;
                     cerr << (build_file_name ? build_file_name : "") 
-                         << ":" << load2->getLineNo() << ": "
-                         << "Semantic error: assignment to undeclared variable '" 
+                         << ":" << loadcomvalor->getLineNo() << ": "
+                         << "Semantic error: variável não declarada '" 
                          << vname << "'.\n";
                 }
             }
 
-            // 4) descida recursiva
+
+			
+
+           
+            
             check(c);
         }
     }

@@ -1,0 +1,13 @@
+
+    flax FLOAT = 99.42;
+    flay FLOAT = 15.5
+  
+    FLAPRINT [ flax / flay];
+
+    flat INT = 0;
+    ZICO[flat < 1000] FLA
+        flat  flat + 1;
+        FLAPRINT [ flat ];
+    MENGO
+
+    FLAPRINT [ "FIM !!" ];

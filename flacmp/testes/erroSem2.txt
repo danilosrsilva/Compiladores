@@ -1,0 +1,9 @@
+FLA
+
+    DIDI erro semântico de reedeclaração de variável
+    flax FLOAT = 27.8;
+    flax FLOAT = 25.6;
+  
+    FLAPRINT [ flax ];
+
+MENGO

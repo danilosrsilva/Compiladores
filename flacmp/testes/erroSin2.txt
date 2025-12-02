@@ -1,0 +1,15 @@
+FLA
+    flax FLOAT = 5.7;
+    flay INT = 10;
+    flastr STR = "Alguma frase legal" ;
+  
+    DIDI Exemplo de while
+    ZICO  flay < 100  FLA
+        flay = flay + 10;
+        FLAPRINT [ flax ];
+
+        VAR [ flay/156 ] FLA 
+            FLAPRINT [ flastr ] ; 
+        MENGO
+    MENGO
+MENGO
